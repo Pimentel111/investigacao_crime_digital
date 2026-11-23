@@ -1,305 +1,390 @@
 export const perguntas = [
   {
-    caminho: "inicio",
-    enunciado:
-      "A equipe de uma pequena empresa percebeu acessos incomuns a uma conta e suspeita que alguns arquivos foram expostos. Você foi chamado para ajudar a investigar. Qual é sua primeira atitude?",
+    id: 1,
+    titulo: "Alerta de invasão",
+    enunciado: "Uma conta apresenta acessos incomuns.",
     alternativas: [
       {
-        texto: "Registrar o alerta e iniciar uma apuração cuidadosa, preservando as evidências.",
-        afirmacao: ["Registrou o alerta e iniciou a investigação preservando as evidências."],
-        tipo: "entrada",
-        proxima: 1,
+        texto: "Conferir os dispositivos autorizados.",
+        proxima: 3,
       },
       {
-        texto: "Começar pela mensagem suspeita, preservando-a sem abrir links ou anexos.",
-        afirmacao: ["Começou pela mensagem suspeita e a preservou sem interagir com ela."],
-        tipo: "entrada",
+        texto: "Ignorar o alerta temporariamente.",
+        proxima: "fim",
+        mensagem:
+          "O alerta foi ignorado e a investigação foi encerrada antes que os fatos fossem verificados.",
+      },
+      {
+        texto: "Isolar o incidente e registrar o alerta.",
         proxima: 2,
       },
     ],
   },
   {
-    caminho: "A",
-    enunciado:
-      "Você começa pelo alerta de acesso. Como verificar se ele representa uma atividade realmente suspeita?",
+    id: 2,
+    titulo: "Preservação inicial",
+    enunciado: "É necessário proteger os primeiros registros.",
     alternativas: [
       {
-        texto: "Comparar horário, dispositivo e local com os registros conhecidos da conta.",
-        afirmacao: ["Comparou os dados do acesso com o histórico conhecido da conta."],
-        tipo: "avancar",
+        texto: "Alterar os registros suspeitos.",
+        proxima: "fim",
+        mensagem:
+          "A alteração dos registros compromete sua integridade. A investigação foi encerrada para evitar novas mudanças nas evidências.",
+      },
+      {
+        texto: "Criar uma cópia dos logs.",
+        proxima: 4,
+      },
+      {
+        texto: "Pedir orientações à equipe responsável.",
+        proxima: 3,
+      },
+    ],
+  },
+  {
+    id: 3,
+    titulo: "Linha do tempo",
+    enunciado: "Os acessos aconteceram em horários incomuns.",
+    alternativas: [
+      {
+        texto: "Avançar diretamente para a análise da conta.",
+        proxima: 6,
+      },
+      {
+        texto: "Comparar os eventos com o histórico da conta.",
+        proxima: 4,
+      },
+      {
+        texto: "Organizar os horários em uma linha do tempo.",
+        proxima: 5,
+      },
+    ],
+  },
+  {
+    id: 4,
+    titulo: "Mensagem suspeita",
+    enunciado: "Uma funcionária recebeu um arquivo desconhecido.",
+    alternativas: [
+      {
+        texto: "Voltar à análise dos acessos.",
         proxima: 3,
       },
       {
-        texto: "Conversar com a pessoa responsável pela conta e confirmar se reconhece a atividade.",
-        afirmacao: ["Confirmou com a pessoa responsável se ela reconhecia o acesso."],
-        tipo: "salto",
-        proxima: 4,
-      },
-      {
-        texto: "Concluir que houve crime apenas pelo alerta automático.",
-        afirmacao: ["Tirou uma conclusão antes de confirmar os fatos."],
-        tipo: "gameover",
-        disponivel: true,
-        mensagem:
-          "Um alerta é um indício, não uma conclusão. Sem checar os fatos, a equipe pode acusar alguém injustamente e comprometer a investigação.",
-      },
-    ],
-  },
-  {
-    caminho: "B",
-    enunciado:
-      "O alerta também menciona uma mensagem suspeita recebida por uma funcionária. Como avançar sem expor ninguém?",
-    alternativas: [
-      {
-        texto: "Pedir que ela encaminhe a mensagem à equipe responsável, sem clicar nos links.",
-        afirmacao: ["Recolheu a mensagem suspeita sem abrir links ou anexos."],
-        tipo: "avancar",
-        proxima: 7,
-      },
-      {
-        texto: "Orientar a equipe a reportar mensagens parecidas e guardar os originais.",
-        afirmacao: ["Orientou a equipe a reportar mensagens suspeitas e preservar os originais."],
-        tipo: "salto",
-        proxima: 8,
-      },
-      {
-        texto: "Publicar a mensagem e os dados da funcionária em um grupo aberto.",
-        afirmacao: ["Expôs dados pessoais durante a apuração."],
-        tipo: "gameover",
-        disponivel: true,
-        mensagem:
-          "A exposição de dados pessoais prejudicou a privacidade da funcionária. Evidências devem ser compartilhadas apenas com pessoas autorizadas.",
-      },
-    ],
-  },
-  {
-    caminho: "A",
-    enunciado:
-      "Os horários do alerta coincidem com uma tentativa de login que a pessoa não reconhece. O que fazer agora?",
-    alternativas: [
-      {
-        texto: "Anotar os horários e solicitar à equipe técnica os registros pertinentes.",
-        afirmacao: ["Documentou os horários e solicitou os registros necessários à equipe técnica."],
-        tipo: "avancar",
-        proxima: 4,
-      },
-      {
-        texto: "Revisar a linha do tempo para conferir se os eventos estão relacionados.",
-        afirmacao: ["Revisou a linha do tempo para conferir a relação entre os eventos."],
-        tipo: "salto",
-        proxima: 1,
-      },
-      {
-        texto: "Tentar acessar a conta da pessoa para descobrir a senha usada.",
-        afirmacao: ["Tentou acessar uma conta sem autorização."],
-        tipo: "gameover",
-        disponivel: true,
-        mensagem:
-          "Acessar contas sem autorização não é uma prática aceitável de investigação. A apuração deve usar procedimentos aprovados e equipes autorizadas.",
-      },
-    ],
-  },
-  {
-    caminho: "A",
-    enunciado:
-      "A pessoa confirma que não reconhece o acesso. Como registrar o que já foi apurado?",
-    alternativas: [
-      {
-        texto: "Montar uma linha do tempo com fontes, horários e fatos ainda não confirmados.",
-        afirmacao: ["Organizou uma linha do tempo e separou fatos confirmados de hipóteses."],
-        tipo: "avancar",
+        texto: "Preservar a mensagem sem abrir anexos.",
         proxima: 5,
       },
       {
-        texto: "Pedir uma segunda revisão dos registros antes de fechar a análise.",
-        afirmacao: ["Solicitou uma segunda revisão dos registros da investigação."],
-        tipo: "salto",
-        proxima: 6,
-      },
-      {
-        texto: "Alterar os registros para que pareçam confirmar sua hipótese.",
-        afirmacao: ["Manipulou evidências para sustentar uma hipótese."],
-        tipo: "gameover",
-        disponivel: true,
-        mensagem:
-          "Alterar evidências destrói a confiança na apuração e impede conclusões confiáveis. Os registros devem ser mantidos íntegros.",
+        texto: "Avançar para a contenção da ameaça.",
+        proxima: 7,
       },
     ],
   },
   {
-    caminho: "A",
-    enunciado:
-      "A linha do tempo mostra acessos próximos à abertura de um anexo inesperado. Qual é o próximo passo seguro?",
+    id: 5,
+    titulo: "Compartilhamento",
+    enunciado: "É necessário documentar a mensagem recebida.",
     alternativas: [
       {
-        texto: "Acionar a equipe de segurança para avaliar o dispositivo e conter riscos.",
-        afirmacao: ["Acionou a equipe de segurança para avaliar o dispositivo e conter riscos."],
-        tipo: "avancar",
+        texto: "Avançar para verificar outros destinatários.",
+        proxima: 8,
+      },
+      {
+        texto: "Registrar remetente, horário e conteúdo.",
         proxima: 6,
       },
       {
-        texto: "Validar a sequência dos eventos com os registros disponíveis.",
-        afirmacao: ["Validou a sequência dos eventos antes de avançar."],
-        tipo: "salto",
-        proxima: 3,
-      },
-      {
-        texto: "Abrir o anexo em um computador pessoal para ver o que ele faz.",
-        afirmacao: ["Abriu um anexo suspeito fora de um ambiente autorizado."],
-        tipo: "gameover",
-        disponivel: true,
-        mensagem:
-          "Abrir um anexo suspeito pode ampliar o incidente e colocar outros dados em risco. A análise deve ser feita por profissionais em ambiente apropriado.",
+        texto: "Voltar à linha do tempo.",
+        proxima: 4,
       },
     ],
   },
   {
-    caminho: "A",
-    enunciado:
-      "A equipe técnica isolou o dispositivo para análise e identificou que uma conta pode ter sido comprometida. Como proteger o ambiente?",
+    id: 6,
+    titulo: "Conta comprometida",
+    enunciado: "Há forte indicação de acesso não autorizado.",
     alternativas: [
       {
-        texto: "Seguir o plano de resposta: proteger a conta e revisar acessos relacionados.",
-        afirmacao: ["Seguiu o plano de resposta para proteger a conta e revisar acessos."],
-        tipo: "avancar",
+        texto: "Voltar à mensagem suspeita.",
+        proxima: 5,
+      },
+      {
+        texto: "Avançar para isolar os dispositivos.",
+        proxima: 10,
+      },
+      {
+        texto: "Bloquear temporariamente a conta.",
+        proxima: 9,
+      },
+    ],
+  },
+  {
+    id: 7,
+    titulo: "Dispositivo suspeito",
+    enunciado: "O arquivo pode ter sido executado em um computador.",
+    alternativas: [
+      {
+        texto: "Avançar para coleta de evidências.",
         proxima: 11,
       },
       {
-        texto: "Reunir os registros restantes antes de concluir o relatório.",
-        afirmacao: ["Reuniu os registros restantes para concluir a análise com cuidado."],
-        tipo: "salto",
+        texto: "Acionar o técnico para contenção segura.",
+        proxima: 10,
+      },
+      {
+        texto: "Voltar à conta comprometida.",
+        proxima: 6,
+      },
+    ],
+  },
+  {
+    id: 8,
+    titulo: "Propagação",
+    enunciado: "Outras pessoas podem ter recebido a mesma mensagem.",
+    alternativas: [
+      {
+        texto: "Voltar à documentação da mensagem.",
         proxima: 5,
       },
       {
-        texto: "Compartilhar os arquivos possivelmente afetados com toda a empresa.",
-        afirmacao: ["Compartilhou arquivos potencialmente afetados sem controle de acesso."],
-        tipo: "gameover",
-        disponivel: true,
-        mensagem:
-          "Distribuir arquivos potencialmente comprometidos pode aumentar o impacto. A contenção deve ser coordenada e limitada às equipes autorizadas.",
+        texto: "Solicitar relatos sem expor dados pessoais.",
+        proxima: 11,
+      },
+      {
+        texto: "Avançar para avisar a equipe de segurança.",
+        proxima: 12,
       },
     ],
   },
   {
-    caminho: "B",
-    enunciado:
-      "Você recebeu a mensagem suspeita preservada. Como documentá-la para a equipe analisar?",
+    id: 9,
+    titulo: "Autorização",
+    enunciado: "A equipe precisa confirmar a ação seguinte.",
     alternativas: [
       {
-        texto: "Registrar remetente e horário e encaminhar o original pelo canal oficial.",
-        afirmacao: ["Documentou a mensagem e encaminhou o original pelo canal oficial."],
-        tipo: "avancar",
+        texto: "Avançar para preservar os logs.",
+        proxima: 13,
+      },
+      {
+        texto: "Voltar à análise da conta.",
+        proxima: 6,
+      },
+      {
+        texto: "Seguir o plano de resposta da organização.",
+        proxima: 12,
+      },
+    ],
+  },
+  {
+    id: 10,
+    titulo: "Decisão estratégica",
+    enunciado:
+      "Novos registros podem confirmar ou enfraquecer a suspeita.",
+    alternativas: [
+      {
+        texto: "Seguir pela rota intermediária de proteção.",
+        proxima: 11,
+      },
+      {
+        texto: "Avançar para confirmar a origem do incidente.",
+        proxima: 14,
+      },
+      {
+        texto: "Voltar à análise do dispositivo.",
+        proxima: 7,
+      },
+    ],
+  },
+  {
+    id: 11,
+    titulo: "Relatórios técnicos",
+    enunciado: "Os técnicos encontraram artefatos relevantes.",
+    alternativas: [
+      {
+        texto: "Voltar aos relatos das vítimas.",
         proxima: 8,
       },
       {
-        texto: "Conferir se outras pessoas receberam mensagens semelhantes.",
-        afirmacao: ["Verificou se outras pessoas receberam mensagens parecidas."],
-        tipo: "salto",
-        proxima: 2,
-      },
-      {
-        texto: "Responder ao remetente fingindo ser outra pessoa.",
-        afirmacao: ["Interagiu com o remetente sem autorização ou orientação da equipe."],
-        tipo: "gameover",
-        disponivel: true,
-        mensagem:
-          "Responder por conta própria pode aumentar o risco e atrapalhar a coleta de evidências. Siga os procedimentos da equipe responsável.",
-      },
-    ],
-  },
-  {
-    caminho: "B",
-    enunciado:
-      "A análise inicial indica que outras pessoas receberam mensagens semelhantes. O que você recomenda?",
-    alternativas: [
-      {
-        texto: "Avisar a equipe de segurança e orientar as pessoas a não interagir com a mensagem.",
-        afirmacao: ["Avisou a equipe de segurança e orientou as pessoas a não interagir com a mensagem."],
-        tipo: "avancar",
-        proxima: 9,
-      },
-      {
-        texto: "Revisar os relatos para separar coincidências de informações verificadas.",
-        afirmacao: ["Revisou os relatos com atenção para separar fatos de suposições."],
-        tipo: "salto",
-        proxima: 10,
-      },
-      {
-        texto: "Acusar publicamente uma pessoa sem evidências confirmadas.",
-        afirmacao: ["Acusou alguém sem evidências confirmadas."],
-        tipo: "gameover",
-        disponivel: true,
-        mensagem:
-          "Uma suspeita não comprova autoria. Acusações públicas sem evidências podem causar danos e comprometer a apuração.",
-      },
-    ],
-  },
-  {
-    caminho: "B",
-    enunciado:
-      "A equipe está verificando o alcance das mensagens. Como manter a comunicação responsável?",
-    alternativas: [
-      {
-        texto: "Compartilhar orientações práticas, sem divulgar nomes ou detalhes da apuração.",
-        afirmacao: ["Compartilhou orientações úteis sem expor pessoas ou detalhes da apuração."],
-        tipo: "avancar",
-        proxima: 10,
-      },
-      {
-        texto: "Esperar a equipe validar os fatos antes de enviar um aviso mais amplo.",
-        afirmacao: ["Aguardou a validação da equipe antes de ampliar o aviso."],
-        tipo: "salto",
-        proxima: 7,
-      },
-      {
-        texto: "Enviar capturas com dados pessoais para todos os contatos.",
-        afirmacao: ["Divulgou dados pessoais além do necessário."],
-        tipo: "gameover",
-        disponivel: true,
-        mensagem:
-          "A divulgação indiscriminada de capturas pode expor dados privados. Use apenas os canais oficiais e compartilhe o mínimo necessário.",
-      },
-    ],
-  },
-  {
-    caminho: "B",
-    enunciado:
-      "A equipe concluiu a triagem e está preparando a resposta. O que deve constar no registro do incidente?",
-    alternativas: [
-      {
-        texto: "Fatos confirmados, medidas tomadas, responsáveis e próximos passos.",
-        afirmacao: ["Registrou fatos, medidas tomadas, responsáveis e próximos passos."],
-        tipo: "avancar",
+        texto: "Solicitar uma segunda revisão técnica.",
         proxima: 12,
       },
       {
-        texto: "Revisar a comunicação e os relatos para evitar informações imprecisas.",
-        afirmacao: ["Revisou os relatos e a comunicação antes de concluir o registro."],
-        tipo: "salto",
-        proxima: 9,
-      },
-      {
-        texto: "Excluir as mensagens e encerrar o caso sem documentar as decisões.",
-        afirmacao: ["Encerrou o caso sem preservar as evidências nem registrar as decisões."],
-        tipo: "gameover",
-        disponivel: true,
-        mensagem:
-          "Sem documentação, não é possível acompanhar as decisões nem aprender com o incidente. Mantenha registros íntegros conforme as regras da organização.",
+        texto: "Avançar para catalogar as evidências.",
+        proxima: 15,
       },
     ],
   },
   {
-    caminho: "A",
-    final: "vitoria",
-    enunciado:
-      "A conta foi protegida, os registros relevantes foram preservados e a equipe autorizada recebeu uma linha do tempo clara. A investigação foi conduzida com cuidado, respeito à privacidade e sem conclusões precipitadas. Caso encaminhado com sucesso!",
-    alternativas: [],
+    id: 12,
+    titulo: "Equipe de resposta",
+    enunciado: "A contenção precisa ser comunicada.",
+    alternativas: [
+      {
+        texto: "Voltar à confirmação da conta.",
+        proxima: 9,
+      },
+      {
+        texto: "Informar apenas os responsáveis autorizados.",
+        proxima: 16,
+      },
+      {
+        texto: "Avançar para montar a linha do tempo final.",
+        proxima: 17,
+      },
+    ],
   },
   {
-    caminho: "B",
-    final: "vitoria",
+    id: 13,
+    titulo: "Integridade dos logs",
+    enunciado: "É necessário garantir que os registros não sejam alterados.",
+    alternativas: [
+      {
+        texto: "Avançar para identificar os artefatos.",
+        proxima: 18,
+      },
+      {
+        texto: "Voltar à preservação dos registros.",
+        proxima: 10,
+      },
+      {
+        texto:
+          "Aplicar controle de integridade e registrar a cadeia de custódia.",
+        proxima: 17,
+      },
+    ],
+  },
+  {
+    id: 14,
+    titulo: "Origem da ameaça",
+    enunciado: "O endereço usado na mensagem precisa ser investigado.",
+    alternativas: [
+      {
+        texto: "Voltar à contenção do dispositivo.",
+        proxima: 11,
+      },
+      {
+        texto: "Avançar para comparar os artefatos.",
+        proxima: 19,
+      },
+      {
+        texto: "Consultar os registros oficiais de conexão.",
+        proxima: 18,
+      },
+    ],
+  },
+  {
+    id: 15,
+    titulo: "Catalogação",
+    enunciado: "Os arquivos coletados precisam ser classificados.",
+    alternativas: [
+      {
+        texto: "Avançar para redigir o relatório.",
+        proxima: 20,
+      },
+      {
+        texto: "Voltar aos registros técnicos.",
+        proxima: 12,
+      },
+      {
+        texto: "Separar evidências, cópias e hipóteses.",
+        proxima: 19,
+      },
+    ],
+  },
+  {
+    id: 16,
+    titulo: "Comunicação segura",
+    enunciado: "Uma atualização precisa ser enviada à equipe.",
+    alternativas: [
+      {
+        texto: "Voltar à equipe de resposta.",
+        proxima: 13,
+      },
+      {
+        texto: "Usar o canal oficial e omitir dados desnecessários.",
+        proxima: 19,
+      },
+      {
+        texto: "Avançar diretamente para o fechamento.",
+        proxima: 20,
+      },
+    ],
+  },
+  {
+    id: 17,
+    titulo: "Linha do tempo final",
+    enunciado: "Os fatos precisam ser organizados antes da conclusão.",
+    alternativas: [
+      {
+        texto: "Avançar para o relatório executivo.",
+        proxima: 20,
+      },
+      {
+        texto: "Voltar à integridade dos logs.",
+        proxima: 14,
+      },
+      {
+        texto: "Confirmar horários, fontes e responsáveis.",
+        proxima: 20,
+      },
+    ],
+  },
+  {
+    id: 18,
+    titulo: "Análise dos artefatos",
+    enunciado: "Os resultados precisam ser confirmados.",
+    alternativas: [
+      {
+        texto: "Avançar para preservar os resultados.",
+        proxima: 20,
+      },
+      {
+        texto: "Voltar à origem da ameaça.",
+        proxima: 15,
+      },
+      {
+        texto: "Cruzar os artefatos com os registros da rede.",
+        proxima: 20,
+      },
+    ],
+  },
+  {
+    id: 19,
+    titulo: "Revisão independente",
+    enunciado: "Alguém deve validar as conclusões.",
+    alternativas: [
+      {
+        texto: "Avançar para concluir o caso.",
+        proxima: 20,
+      },
+      {
+        texto: "Voltar à catalogação das evidências.",
+        proxima: 16,
+      },
+      {
+        texto: "Solicitar revisão da equipe autorizada.",
+        proxima: 20,
+      },
+    ],
+  },
+  {
+    id: 20,
+    titulo: "Encerramento",
     enunciado:
-      "A mensagem foi analisada pela equipe responsável, as pessoas receberam orientações seguras e o incidente foi documentado sem expor dados pessoais. Sua colaboração ajudou a investigação a avançar de forma responsável. Caso encaminhado com sucesso!",
-    alternativas: [],
+      "Todas as evidências, medidas e decisões foram reunidas.",
+    alternativas: [
+      {
+        texto:
+          "Encaminhar o caso e recomendar correções preventivas.",
+        proxima: "vitoria",
+      },
+      {
+        texto: "Voltar à revisão final dos artefatos.",
+        proxima: 17,
+      },
+      {
+        texto: "Entregar o relatório com cadeia de custódia completa.",
+        proxima: "vitoria",
+      },
+    ],
   },
 ];

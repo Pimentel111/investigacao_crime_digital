@@ -1,0 +1,99 @@
+Alerta de invasão: Uma conta apresenta acessos incomuns.
+A) Isolar o incidente e registrar o alerta. → 2
+B) Conferir os dispositivos autorizados. → 3
+C) Ignorar o alerta temporariamente. → Encerrar investigação
+
+Preservação inicial: É necessário proteger os primeiros registros.
+A) Criar uma cópia dos logs. → 4
+B) Pedir orientações à equipe responsável. → 3
+C) Alterar os registros suspeitos. → Encerrar investigação
+
+Linha do tempo: Os acessos aconteceram em horários incomuns.
+A) Organizar os horários em uma linha do tempo. → 5
+B) Avançar diretamente para a análise da conta. → 6
+C) Comparar os eventos com o histórico da conta. → 4
+
+Mensagem suspeita: Uma funcionária recebeu um arquivo desconhecido.
+A) Preservar a mensagem sem abrir anexos. → 5
+B) Avançar para a contenção da ameaça. → 7
+C) Voltar à análise dos acessos. → 3
+
+Compartilhamento: É necessário documentar a mensagem recebida.
+A) Registrar remetente, horário e conteúdo. → 6
+B) Avançar para verificar outros destinatários. → 8
+C) Voltar à linha do tempo. → 4
+
+Conta comprometida: Há forte indicação de acesso não autorizado.
+A) Bloquear temporariamente a conta. → 9
+B) Avançar para isolar os dispositivos. → 10
+C) Voltar à mensagem suspeita. → 5
+
+Dispositivo suspeito: O arquivo pode ter sido executado em um computador.
+A) Acionar o técnico para contenção segura. → 10
+B) Avançar para coleta de evidências. → 11
+C) Voltar à conta comprometida. → 6
+
+Propagação: Outras pessoas podem ter recebido a mesma mensagem.
+A) Solicitar relatos sem expor dados pessoais. → 11
+B) Avançar para avisar a equipe de segurança. → 12
+C) Voltar à documentação da mensagem. → 5
+
+Autorização: A equipe precisa confirmar a ação seguinte.
+A) Seguir o plano de resposta da organização. → 12
+B) Avançar para preservar os logs. → 13
+C) Voltar à análise da conta. → 6
+
+Decisão estratégica: Novos registros podem confirmar ou enfraquecar a suspeita.
+A) Voltar à análise do dispositivo. → 7
+B) Avançar para confirmar a origem do incidente. → 14
+C) Seguir pela rota intermediária de proteção. → 11
+
+Relatórios técnicos: Os técnicos encontraram artefatos relevantes.
+A) Avançar para catalogar as evidências. → 15
+B) Voltar aos relatos das vítimas. → 8
+C) Solicitar uma segunda revisão técnica. → 12
+
+Equipe de resposta: A contenção precisa ser comunicada.
+A) Informar apenas os responsáveis autorizados. → 16
+B) Avançar para montar a linha do tempo final. → 17
+C) Voltar à confirmação da conta. → 9
+
+Integridade dos logs: É necessário garantir que os registros não sejam alterados.
+A) Aplicar controle de integridade e registrar a cadeia de custódia. → 17
+B) Avançar para identificar os artefatos. → 18
+C) Voltar à preservação dos registros. → 10
+
+Origem da ameaça: O endereço usado na mensagem precisa ser investigado.
+A) Consultar os registros oficiais de conexão. → 18
+B) Avançar para comparar os artefatos. → 19
+C) Voltar à contenção do dispositivo. → 11
+
+Catalogações: Os arquivos coletados precisam ser classificados.
+A) Separar evidências, cópias e hipóteses. → 19
+B) Avançar para redigir o relatório. → 20
+C) Voltar aos registros técnicos. → 12
+
+Comunicação segura: Uma atualização precisa ser enviada à equipe.
+A) Usar o canal oficial e omitir dados desnecessários. → 19
+B) Avançar diretamente para o fechamento. → 20
+C) Voltar à equipe de resposta. → 13
+
+Linha do tempo final: Os fatos precisam ser organizados antes da conclusão.
+A) Confirmar horários, fontes e responsáveis. → 20
+B) Avançar para o relatório executivo. → 20
+C) Voltar à integridade dos logs. → 14
+
+Análise dos artefatos: Os resultados precisam ser confirmados.
+A) Cruzar os artefatos com os registros da rede. → 20
+B) Avançar para preservar os resultados. → 20
+C) Voltar à origem da ameaça. → 15
+
+Revisão independente: Alguém deve validar as conclusões.
+A) Solicitar revisão da equipe autorizada. → 20
+B) Avançar para concluir o caso. → 20
+C) Voltar à catalogação das evidências. → 16
+
+Encerramento: Todas as evidências, medidas e decisões foram reunidas.
+A) Entregar o relatório com cadeia de custódia completa. → Vitória
+B) Encaminhar o caso e recomendar correções preventivas. → Vitória
+C) Voltar à revisão final dos artefatos. → 17

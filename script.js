@@ -1,8 +1,14 @@
 import { perguntas } from "./perguntas.js";
-import { aleatorio, nome } from "./aleatorio.js";
 
 const caixaPerguntas = document.querySelector(".caixa-perguntas");
+const tituloPergunta = document.querySelector(".titulo-pergunta");
+const textoPergunta = document.querySelector(".texto-pergunta");
+const numeroPergunta = document.querySelector(".numero-pergunta");
 const caixaAlternativas = document.querySelector(".caixa-alternativas");
+const caixaProgresso = document.querySelector(".caixa-progresso");
+const textoProgresso = document.querySelector(".texto-progresso");
+const trilhoProgresso = document.querySelector(".trilho-progresso");
+const barraProgresso = document.querySelector(".progresso-preenchimento");
 const caixaResultado = document.querySelector(".caixa-resultado");
 const textoResultado = document.querySelector(".texto-resultado");
 const tituloResultado = document.querySelector(".titulo-resultado");
@@ -13,8 +19,8 @@ const botaoCreditos = document.querySelector(".creditos-btn");
 const telaCreditos = document.querySelector(".tela-creditos");
 const botaoVoltarInicio = document.querySelector(".voltar-inicio-btn");
 
-let atual = 0;
-let historiaFinal = "";
+let atual = 1;
+let historiaFinal = [];
 let faseDaPartida = "inicio";
 
 botaoIniciar.addEventListener("click", iniciaJogo);
@@ -27,103 +33,106 @@ function iniciaJogo() {
   faseDaPartida = "jogando";
 
   telaInicial.style.display = "none";
+  caixaProgresso.style.display = "block";
   caixaPerguntas.style.display = "block";
   caixaAlternativas.style.display = "flex";
   mostraPergunta();
 }
 
 function reiniciaJogo() {
-  atual = 0;
-  historiaFinal = "";
+  atual = 1;
+  historiaFinal = [];
   faseDaPartida = "inicio";
 
-  caixaPerguntas.textContent = "";
+  tituloPergunta.textContent = "";
+  textoPergunta.textContent = "";
+  numeroPergunta.textContent = "";
+  textoProgresso.textContent = "";
+  barraProgresso.style.width = "0%";
   caixaAlternativas.replaceChildren();
   tituloResultado.textContent = "";
   textoResultado.textContent = "";
 
   telaInicial.style.display = "block";
+  caixaProgresso.style.display = "none";
   caixaPerguntas.style.display = "none";
   caixaAlternativas.style.display = "none";
   caixaResultado.style.display = "none";
   telaCreditos.style.display = "none";
   botaoCreditos.style.display = "none";
   botaoJogarNovamente.style.display = "inline-block";
+  botaoJogarNovamente.textContent = "Recomeçar investigação";
 }
 
 function mostraPergunta() {
-  const perguntaAtual = perguntas[atual];
+  const perguntaAtual = perguntas.find((pergunta) => pergunta.id === atual);
 
-  if (perguntaAtual.final === "vitoria") {
-    mostraVitoria(perguntaAtual.enunciado);
+  if (!perguntaAtual) {
+    console.error("Questão não encontrada:", atual);
     return;
   }
 
-  caixaPerguntas.textContent = perguntaAtual.enunciado.replace(/você/gi, nome);
+  const porcentagem = Math.round((atual / perguntas.length) * 100);
+  numeroPergunta.textContent = `Cena ${String(atual).padStart(2, "0")}`;
+  tituloPergunta.textContent = perguntaAtual.titulo;
+  trilhoProgresso.setAttribute("aria-valuenow", atual);
+  textoPergunta.textContent = perguntaAtual.enunciado;
+  textoProgresso.textContent = `Cena ${atual} de ${perguntas.length}`;
+  barraProgresso.style.width = `${porcentagem}%`;
   caixaAlternativas.replaceChildren();
 
-  for (const alternativa of perguntaAtual.alternativas) {
+  perguntaAtual.alternativas.forEach((alternativa, indice) => {
     const botao = document.createElement("button");
-    botao.textContent = alternativa.texto;
-    botao.disabled = alternativa.disponivel === false;
-    botao.addEventListener("click", function () {
-      respostaSelecionada(alternativa);
-    });
+    const letra = String.fromCharCode(65 + indice);
+    botao.textContent = `${letra}) ${alternativa.texto}`;
+    botao.addEventListener("click", () => respostaSelecionada(alternativa, letra));
     caixaAlternativas.appendChild(botao);
-  }
+  });
+  tituloPergunta.focus({ preventScroll: true });
 }
 
-function respostaSelecionada(opcaoSelecionada) {
+function respostaSelecionada(opcaoSelecionada, letra) {
   if (faseDaPartida !== "jogando") {
     return;
   }
 
-  if (opcaoSelecionada.disponivel === false) {
-    return;
-  }
+  historiaFinal.push(`Cena ${atual} — ${letra}) ${opcaoSelecionada.texto}`);
 
-  if (opcaoSelecionada.tipo === "gameover") {
-    const afirmacao = aleatorio(opcaoSelecionada.afirmacao);
-    historiaFinal += afirmacao + " ";
+  if (opcaoSelecionada.proxima === "fim") {
     mostraGameOver(opcaoSelecionada.mensagem);
     return;
   }
 
-  const destino = opcaoSelecionada.proxima;
-
-  if (!Number.isInteger(destino) || perguntas[destino] === undefined) {
-    console.error("Destino inválido:", destino);
+  if (opcaoSelecionada.proxima === "vitoria") {
+    mostraVitoria(
+      "A investigação foi concluída e o caso foi encaminhado com responsabilidade.",
+    );
     return;
   }
 
-  const origem = perguntas[atual];
-  const chegada = perguntas[destino];
-  const mudouDeCaminho = origem.caminho !== chegada.caminho;
-
-  if (atual !== 0 && mudouDeCaminho && opcaoSelecionada.tipo !== "trocar") {
-    console.error("Mudança de caminho sem o tipo trocar.");
+  if (
+    !Number.isInteger(opcaoSelecionada.proxima) ||
+    !perguntas.some((pergunta) => pergunta.id === opcaoSelecionada.proxima)
+  ) {
+    console.error("Destino inválido:", opcaoSelecionada.proxima);
+    historiaFinal.pop();
     return;
   }
 
-  if (opcaoSelecionada.tipo === "trocar" && !mudouDeCaminho) {
-    console.error("A troca deve levar a outro caminho.");
-    return;
-  }
-
-  const afirmacao = aleatorio(opcaoSelecionada.afirmacao);
-  historiaFinal += afirmacao + " ";
-  atual = destino;
+  atual = opcaoSelecionada.proxima;
   mostraPergunta();
 }
 
 function mostraGameOver(mensagem) {
   faseDaPartida = "gameover";
+  caixaProgresso.style.display = "none";
   caixaPerguntas.style.display = "none";
   caixaAlternativas.replaceChildren();
   caixaAlternativas.style.display = "none";
   caixaResultado.style.display = "block";
   tituloResultado.textContent = "INVESTIGAÇÃO INTERROMPIDA";
-  textoResultado.textContent = mensagem + "\n\nSuas escolhas nesta tentativa:\n" + historiaFinal;
+  textoResultado.textContent =
+    mensagem + "\n\nSuas escolhas nesta tentativa:\n" + historiaFinal.join("\n");
   botaoJogarNovamente.textContent = "Recomeçar do início";
   botaoJogarNovamente.style.display = "inline-block";
   botaoCreditos.style.display = "none";
@@ -131,17 +140,19 @@ function mostraGameOver(mensagem) {
 }
 
 function mostraVitoria(mensagem) {
-  if (faseDaPartida !== "jogando" || perguntas[atual].final !== "vitoria") {
+  if (faseDaPartida !== "jogando") {
     return;
   }
 
   faseDaPartida = "vitoria";
+  caixaProgresso.style.display = "none";
   caixaPerguntas.style.display = "none";
   caixaAlternativas.replaceChildren();
   caixaAlternativas.style.display = "none";
   caixaResultado.style.display = "block";
   tituloResultado.textContent = "CASO CONCLUÍDO";
-  textoResultado.textContent = mensagem + "\n\nResumo da investigação:\n" + historiaFinal;
+  textoResultado.textContent =
+    mensagem + "\n\nResumo da investigação:\n" + historiaFinal.join("\n");
   botaoJogarNovamente.style.display = "none";
   botaoCreditos.style.display = "inline-block";
   telaCreditos.style.display = "none";
@@ -154,6 +165,7 @@ function mostraCreditos() {
 
   faseDaPartida = "creditos";
   telaInicial.style.display = "none";
+  caixaProgresso.style.display = "none";
   caixaPerguntas.style.display = "none";
   caixaAlternativas.style.display = "none";
   caixaResultado.style.display = "none";
@@ -161,5 +173,3 @@ function mostraCreditos() {
 }
 
 reiniciaJogo();
-
-JS>ALEATORIO

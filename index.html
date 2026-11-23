@@ -22,7 +22,24 @@
         </p>
         <button class="iniciar-btn">Iniciar investigação</button>
       </div>
-      <div class="caixa-perguntas" aria-live="polite"></div>
+      <div class="caixa-progresso" aria-label="Progresso da investigação">
+        <div class="texto-progresso"></div>
+        <div
+          class="trilho-progresso"
+          role="progressbar"
+          aria-label="Progresso das cenas"
+          aria-valuemin="1"
+          aria-valuemax="20"
+          aria-valuenow="1"
+        >
+          <div class="progresso-preenchimento"></div>
+        </div>
+      </div>
+      <section class="caixa-perguntas" aria-live="polite" aria-atomic="true">
+        <span class="numero-pergunta"></span>
+        <h2 class="titulo-pergunta" tabindex="-1"></h2>
+        <p class="texto-pergunta"></p>
+      </section>
       <div class="caixa-alternativas"></div>
       <div class="caixa-resultado" aria-live="polite">
         <h2 class="titulo-resultado"></h2>
@@ -33,7 +50,7 @@
       <div class="tela-creditos">
         <h2>Créditos</h2>
         <p><strong>Jogo:</strong> Investigação de crime digital</p>
-        <p><strong>Roteiro e programação:</strong> Benny e Layza</p>
+        <p><strong>Roteiro e programação:</strong> Yuri e Lucas</p>
         <p><strong>Turma:</strong> 3ºL</p>
         <p><strong>Escola:</strong> Colégio Estadual do Paraná</p>
         <p><strong>Disciplina:</strong> Matemática II — Programação</p>
